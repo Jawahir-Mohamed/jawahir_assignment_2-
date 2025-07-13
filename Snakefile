@@ -14,9 +14,12 @@ S3_PREFIX = "ebola"
 
 rule all:
     input: 
-        f"{SNAKEMAKE_DIR}/.dirs_created",
+       f"{SNAKEMAKE_DIR}/.dirs_created",
         f"{RAW_DIR}/reference.fasta",
-        f"{RAW_DIR}/{SRA}/{SRA}.sra"
+        f"{RAW_DIR}/{SRA}/{SRA}.sra",
+        f"{RAW_DIR}/{SRA}.fastq",
+       
+
 
 rule create_dirs:
     output:
@@ -50,3 +53,16 @@ rule download_sra:
         prefetch {SRA} -O {RAW_DIR}
         echo Downloaded sequencing data!
         """
+  
+rule extract_sequence:
+    input:
+        sequence_sra = rules.download_sra.output.sequence_sra
+    output:
+        sequence_fastq = f"{RAW_DIR}/{SRA}.fastq"
+    shell:
+        """
+        echo Extracting sequencing data...
+        fastq-dump -X 10000 {RAW_DIR}/{SRA}/{SRA}.sra -O {RAW_DIR}
+        echo Extracted sequencing data!
+        """
+       
