@@ -21,5 +21,18 @@ rule create_dirs:
         mkdir -p {RESULTS_FOLDER} {RAW_DIR} {ALIGNED_DIR} {VARIANT_DIR} {ANNOTATED_DIR} {QC_DIR} {SNPEFF_DATA_DIR} {SNAKEMAKE_DIR}
         touch {SNAKEMAKE_DIR}/.dirs_created
         """
+        
+rule download_reference:
+    input:
+        f"{SNAKEMAKE_DIR}/.dirs_created"
+    output:
+        f"{RAW_DIR}/reference.fasta"
+    shell:
+        """
+        echo Downloading reference genome...
+        efetch -db nucleotide -id {REF_ID} -format fasta > {RAW_DIR}/reference.fasta
+        echo Downloaded reference genome!
+        """
+
  
  
