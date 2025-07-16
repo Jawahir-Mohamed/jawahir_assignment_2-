@@ -1,0 +1,5 @@
+Building DAG of jobs...
+MissingInputException in rule all in file /home/ubuntu/binf5506/Snakefile, line 15:
+Missing input files for rule all:
+    affected files:
+        results/snakemake/.s3_upload_done

@@ -1,0 +1,50 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                   count
+------------------  -------
+all                       1
+download_reference        1
+download_sra              1
+total                     3
+
+Select jobs to execute...
+
+[Sun Jul 13 06:05:54 2025]
+rule download_reference:
+    input: results/snakemake/.dirs_created
+    output: results/raw/reference.fasta
+    jobid: 2
+    reason: Missing output files: results/raw/reference.fasta
+    resources: tmpdir=/tmp
+
+
+[Sun Jul 13 06:05:54 2025]
+rule download_sra:
+    input: results/snakemake/.dirs_created
+    output: results/raw/SRR1972739/SRR1972739.sra
+    jobid: 3
+    reason: Missing output files: results/raw/SRR1972739/SRR1972739.sra
+    resources: tmpdir=/tmp
+
+[Sun Jul 13 06:05:55 2025]
+Finished job 2.
+1 of 3 steps (33%) done
+[Sun Jul 13 06:05:56 2025]
+Finished job 3.
+2 of 3 steps (67%) done
+Select jobs to execute...
+
+[Sun Jul 13 06:05:56 2025]
+localrule all:
+    input: results/snakemake/.dirs_created, results/raw/reference.fasta, results/raw/SRR1972739/SRR1972739.sra
+    jobid: 0
+    reason: Input files updated by another job: results/raw/reference.fasta, results/raw/SRR1972739/SRR1972739.sra
+    resources: tmpdir=/tmp
+
+[Sun Jul 13 06:05:56 2025]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2025-07-13T060553.860739.snakemake.log
